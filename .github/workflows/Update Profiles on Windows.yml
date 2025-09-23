@@ -3,16 +3,20 @@ name: Update Profiles on Windows
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 3 ? * WED,SAT "
+    - cron: "0 3 ? * WED,SAT"
 
 jobs:
   update-profiles:
-    runs-on: windows-latest
+    runs-on: windows-2022
+    permissions:
+      contents: write  # 关键权限设置
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v5
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}  # ← 添加这3行
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0  # 获取完整历史记录
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -20,29 +24,35 @@ jobs:
           python-version-file: '.python-version'
           architecture: x64
 
-      # - name: Install Python dependencies
-      #   uses: py-actions/py-dependency-install@v3
-      #   with:
-      #     path: "auto_getter/requirements.txt"
-      #     update-pip: "true"
-      #     update-setuptools: "true"
-      #     update-wheel: "true"
+      - name: Install dependencies
+        run: pip3 install beautifulsoup4
 
-      - name: Run Scripts
+      - name: Run main script
+        run: pwsh ./run.ps1
+
+      - name: Check for changes
+        id: check_changes
         run: |
-          pip3 install beautifulsoup4
-          pwsh ./run.ps1
+          git status --porcelain
+          if (git status --porcelain) {
+            echo "has_changes=true" >> $env:GITHUB_OUTPUT
+          } else {
+            echo "has_changes=false" >> $env:GITHUB_OUTPUT
+          }
 
-      - name: Add Commit
+      - name: Commit changes
+        if: steps.check_changes.outputs.has_changes == 'true'
         run: |
           Set-TimeZone -Id "China Standard Time"
-          $china_date = date +%Y-%m-%d" "%H:%M:%S
-          $message = "更新（代理配置）: \`${china_date}\` 更新。"
+          $china_date = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+          $message = "更新（代理配置）: `${china_date}` 更新。"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git add .
+          git commit -m "$message"
 
-      - name: Push Changes
+      - name: Push changes
+        if: steps.check_changes.outputs.has_changes == 'true'
         uses: ad-m/github-push-action@master
         with:
-          token: ${{ secrets.ACCESS_TOKEN  }}
+          token: ${{ secrets.GITHUB_TOKEN }}
