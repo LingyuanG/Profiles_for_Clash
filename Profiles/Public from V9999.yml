@@ -6,8 +6,8 @@ log-level: info
 external-controller: :9090
 proxies:
   - {name: SSR节点, server: ssr2.762988.xyz, port: 33336, type: ssr, cipher: chacha20-ietf, password: dongtaiwang.com, protocol: auth_chain_a, obfs: tls1.2_ticket_auth, protocol-param: "", obfs-param: ""}
-  - {name: SS节点-ipv6, server: "[2001:bc8:1203:106::300]", port: 33333, type: ss, cipher: aes-256-gcm, password: dongtaiwang.com}
-  - {name: VMESS节点2-ipv6, server: 2001:bc8:32d7:13a::2, port: 55009, type: vmess, uuid: 093e2946-aa16-492a-a139-4c6038ad3e1c, alterId: 0, cipher: auto, tls: false, skip-cert-verify: true, network: ws, ws-opts: {path: /github.com/Alvin9999, headers: {Host: www.bing.com}}}
+  - {name: SS节点-ipv6, server: "[2001:bc8:32d7:2013::10]", port: 11111, type: ss, cipher: aes-256-gcm, password: dongtaiwang.com}
+  - {name: VMESS节点2-ipv6, server: 2001:bc8:32d7:2013::8, port: 62211, type: vmess, uuid: e1786d49-ccba-466b-a0dd-e1ab59bd83bb, alterId: 0, cipher: auto, tls: false, skip-cert-verify: true, network: ws, ws-opts: {path: /github.com/Alvin9999, headers: {Host: www.bing.com}}}
 proxy-groups:
   - name: 🔰 节点选择
     type: select
