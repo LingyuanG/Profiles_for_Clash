@@ -254,34 +254,6 @@ proxies:
     port: 443
     cipher: chacha20-ietf-poly1305
     password: HaNqw9pIE4jcx98sg7UQgHeGNTM4R2pk
-  - type: vless
-    name: 🇬🇧_GB_英国_1
-    server: 157.173.127.224
-    port: 443
-    uuid: bec44ac3-a662-4179-a9dd-2aa881706dde
-    network: tcp
-    servername: analytics.google.com
-    tls: true
-    encryption: none
-    reality-opts:
-      public-key: Ajk0QudeMVQocN88OG14PpsxparFuRJlvqzXDlW-gyQ
-      short-id: aba7bc9a
-    client-fingerprint: chrome
-  - type: vmess
-    name: 🇬🇧 英国 - Slough - DigitalOcean, LLC - 1
-    server: v36.hdacd.com
-    port: 30836
-    uuid: cbb3f877-d1fb-344c-87a9-d153bffd5484
-    alterId: 2
-    network: tcp
-    cipher: auto
-    servername: v36.hdacd.com
-  - type: ss
-    name: 🇮🇷_IR_伊朗
-    server: 217.60.249.112
-    port: 443
-    cipher: chacha20-ietf-poly1305
-    password: 0eC4ZBvStOgQEzTpCYjWN5
 proxy-groups:
   - name: 🚀 节点选择
     type: select
@@ -306,9 +278,6 @@ proxy-groups:
       - 🇺🇸_US_美国_2
       - 🇧🇬_BG_保加利亚
       - 🇷🇺_RU_俄罗斯_1
-      - 🇬🇧_GB_英国_1
-      - 🇬🇧 英国 - Slough - DigitalOcean, LLC - 1
-      - 🇮🇷_IR_伊朗
   - name: ♻️ 自动选择
     type: url-test
     proxies:
@@ -330,9 +299,6 @@ proxy-groups:
       - 🇺🇸_US_美国_2
       - 🇧🇬_BG_保加利亚
       - 🇷🇺_RU_俄罗斯_1
-      - 🇬🇧_GB_英国_1
-      - 🇬🇧 英国 - Slough - DigitalOcean, LLC - 1
-      - 🇮🇷_IR_伊朗
     url: http://www.gstatic.com/generate_204
     interval: 300
   - name: 🎯 全球直连
@@ -370,9 +336,6 @@ proxy-groups:
       - 🇺🇸_US_美国_2
       - 🇧🇬_BG_保加利亚
       - 🇷🇺_RU_俄罗斯_1
-      - 🇬🇧_GB_英国_1
-      - 🇬🇧 英国 - Slough - DigitalOcean, LLC - 1
-      - 🇮🇷_IR_伊朗
 rule-providers:
   LocalAreaNetwork:
     type: http
